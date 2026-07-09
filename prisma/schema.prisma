@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+model User {
+    id        String   @id @default(cuid())
+    email     String   @unique
+    password  String
+    name      String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    teamId String?
+    Team   Team?   @relation(fields: [teamId], references: [id], onDelete: SetNull)
+    role   Role    @default(USER)
+
+    // Indexes
+    @@index([email])
+    @@index([role])
+    @@index([teamId])
+    //map
+    @@map("users")
+}
+
+enum Role {
+    ADMIN
+    MANAGER
+    USER
+    GUEST
+}
+
+model Team {
+    id          String   @id @default(cuid())
+    name        String   @unique
+    description String?
+    code        String   @unique
+    members     User[]
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    //map
+    @@map("teams")
+}
+
+// model TeamMember {
+//     id        String   @id @default(cuid())
+//     userId    String
+//     teamId    String
+//     role      String   @default("member") // default role
+//     createdAt DateTime @default(now())
+//     updatedAt DateTime @updatedAt
+
+//     // Relations
+//     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//     team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+//     @@unique([userId, teamId])
+// }
+
+// model Role {
+//     id          String   @id @default(cuid())
+//     name        String
+//     description String?
+//     teamId      String
+//     createdAt   DateTime @default(now())
+//     updatedAt   DateTime @updatedAt
+
+//     // Relations
+//     team        Team             @relation(fields: [teamId], references: [id], onDelete: Cascade)
+//     // permissions RolePermission[]
+//     // users       UserRole[]
+
+//     @@unique([name, teamId])
+// }
+
+// model Permission {
+//     id          String   @id @default(cuid())
+//     name        String   @unique
+//     description String?
+//     resource    String // e.g., "users", "teams", "roles"
+//     action      String // e.g., "create", "read", "update", "delete"
+//     createdAt   DateTime @default(now())
+//     updatedAt   DateTime @updatedAt
+
+//     // Relations
+//     roles RolePermission[]
+// }
+
+// model RolePermission {
+//     roleId       String
+//     permissionId String
+
+//     // Relations
+//     role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+//     permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+//     @@id([roleId, permissionId])
+// }
+
+// model UserRole {
+//     id        String   @id @default(cuid())
+//     userId    String
+//     roleId    String
+//     createdAt DateTime @default(now())
+//     updatedAt DateTime @updatedAt
+
+//     // Relations
+//     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//     role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+//     @@unique([userId, roleId])
+// }
