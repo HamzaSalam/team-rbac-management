@@ -19,7 +19,7 @@ model User {
 
     // Relations
     teamId String?
-    Team   Team?   @relation(fields: [teamId], references: [id], onDelete: SetNull)
+    team   Team?   @relation(fields: [teamId], references: [id], onDelete: SetNull)
     role   Role    @default(USER)
 
     // Indexes

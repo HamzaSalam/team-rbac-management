@@ -19,7 +19,7 @@ export async function verifyPassword(
 }
 
 export function generateToken(userId: string): string {
-  return jwt.sign(userId, JWT_SECRET, { expiresIn: "7d" });
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: "7d" });
 }
 
 export function verifyToken(token: string): { userId: string } {
