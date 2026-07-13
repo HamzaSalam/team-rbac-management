@@ -57,9 +57,12 @@ export async function PATCH(
       },
     });
 
+    // if you want to exclude the password from the response, you can destructure it out
+    const { password, ...userWithoutPassword } = updatedUser;
+
     return NextResponse.json(
       {
-        user: updatedUser,
+        user: userWithoutPassword,
         message: `User role updated to ${role} successfully`,
       },
       { status: 200 },
