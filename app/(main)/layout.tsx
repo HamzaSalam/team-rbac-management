@@ -8,7 +8,7 @@ export default function Mainlayout({
 }) {
   return (
     <>
-      <Header />
+      <Header user={null} />
       <main className="container mx-auto px-4 py-8">{children}</main>
     </>
   );
