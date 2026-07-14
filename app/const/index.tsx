@@ -7,8 +7,8 @@ export const featureNames = [
 ];
 
 export const roleNames = [
-  { name: "Full system access", role: "Super Admin" },
-  { name: "User and Team management", role: "Admin" },
-  { name: "Team Specific Manager", role: "Manager" },
-  { name: "Basic Dashboard", role: "User" },
+  { name: "Full system access", role: "Super Admin", color: "text-purple-400" },
+  { name: "User and Team management", role: "Admin", color: "text-green-400" },
+  { name: "Team Specific Manager", role: "Manager", color: "text-yellow-400" },
+  { name: "Basic Dashboard", role: "User", color: "text-blue-400" },
 ];

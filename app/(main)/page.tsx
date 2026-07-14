@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { featureNames, roleNames } from "../const";
 
 export default function Home() {
+  const user = false;
   return (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-3xl text-white mb-6 font-bold">
@@ -23,12 +25,44 @@ export default function Home() {
           <ul className="list-disc list-inside text-slate-300 text-sm space-y-1">
             {roleNames.map((role, index) => (
               <li key={index}>
-                <strong>{role.role}</strong> {role.name}
+                <strong className={role.color}>{role.role}</strong> {role.name}
               </li>
             ))}
           </ul>
         </div>
       </div>
+      {user ? (
+        <div className="bg-green-900/30 border border-green-600 rounded-lg p-4">
+          <p className="text-green-300">
+            Wellcome Back <strong>Hamza</strong>! You are logged in as{" "}
+            <strong>user</strong>.
+          </p>
+          <Link
+            href="/dashboard"
+            className="text-green-300 hover:text-green-400 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg mt-4 inline-block"
+          >
+            Go to Dashboard
+          </Link>
+        </div>
+      ) : (
+        <div className="bg-blue-900/30 border border-blue-600 rounded-lg p-4">
+          <p className="text-slate-300 mb-4">
+            You are not logged in. Please log in to access the dashboard.
+          </p>
+          <Link
+            href="/login"
+            className="text-slate-300 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg mr-2"
+          >
+            Login
+          </Link>
+          <Link
+            href="/register"
+            className="text-slate-300 border border-slate-600 hover:bg-blue-700 px-4 py-2 rounded-lg"
+          >
+            Register
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
